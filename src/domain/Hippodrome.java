@@ -6,16 +6,13 @@ public class Hippodrome {
 
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
-
+        Hippodrome hippodrome = new Hippodrome();
 
 // INTRODUCE THE HORSE OBJECT MANUALLY
         Horse h1 = new Horse(125, "Marron");
         Horse h2 = new Horse(165, "Blanco");
         Horse h3 = new Horse(568, "Negro");
         Horse[] listHorse = new Horse[]{h1, h2, h3};
-
-
-
 
         System.out.println("Introduce the players: ");
         Player[] listPlayers = new Player[2];
@@ -30,12 +27,12 @@ public class Hippodrome {
             listPlayers[i] = p;
         }
 //CALL THE METHOD TO SHOW THE MENU
-        drawMenu(listPlayers, listHorse);
+        hippodrome.drawMenu(listPlayers, listHorse);
 
     }
 
 //Method to check if the horse with the number written exists
-    public static boolean proofNumber(int number, Horse[] listHorse){
+    private boolean proofNumber(int number, Horse[] listHorse){
         boolean exit = false;
         for (int i = 0; i<3; i++){
             if (number == listHorse[i].getNumberId()) {
@@ -46,7 +43,8 @@ public class Hippodrome {
         return exit;
     }
 
-    public static void drawMenu(Player[] listPlayer, Horse[] listHorse){
+    private void drawMenu(Player[] listPlayer, Horse[] listHorse){
+        Hippodrome hippodrome = new Hippodrome();
         Scanner scan = new Scanner(System.in);
 
         String menu = """
@@ -63,8 +61,8 @@ public class Hippodrome {
             exit = scan.nextInt();
 
             switch (exit) {
-                case 1 -> betting(listPlayer, listHorse);
-                case 2 -> raceCompetition(listPlayer, listHorse);
+                case 1 -> hippodrome.betting(listPlayer, listHorse);
+                case 2 -> hippodrome.raceCompetition(listPlayer, listHorse);
                 case 3 -> System.out.println("Goodbye!");
                 default -> System.out.println("This options is not allowed");
             }
@@ -73,7 +71,7 @@ public class Hippodrome {
 
     }
 
-    public static void betting(Player[] listPlayer, Horse[] listHorse){
+    private void betting(Player[] listPlayer, Horse[] listHorse){
         Scanner scan = new Scanner(System.in);
         boolean exit = false;
         do{
@@ -110,7 +108,7 @@ public class Hippodrome {
         }while(!exit);
     }
 
-    public static void raceCompetition(Player[] listPlayer, Horse[] listHorse){
+    private void raceCompetition(Player[] listPlayer, Horse[] listHorse){
 
         boolean proof = true;
 
@@ -124,7 +122,8 @@ public class Hippodrome {
             System.out.println("The race can only be started when all players have bet\n");
 
         }else{
-            Horse horseWinner = getHorseWinner(listHorse);
+            Hippodrome hippodrome = new Hippodrome();
+            Horse horseWinner = hippodrome.getHorseWinner(listHorse);
             for (Player p : listPlayer) {
                 if(p.getMoney()<p.getBet().getQuantity()){
                     System.out.println("You can not bet because it is not allowed to have a balance in negative, change the bets");
@@ -150,12 +149,9 @@ public class Hippodrome {
         }
     }
 
-    public static Horse getHorseWinner(Horse[] listHorse){
+    private Horse getHorseWinner(Horse[] listHorse){
         Race race = new Race("Championship", 80);
-        
         return race.startRace(listHorse);
     }
-
-
 
 }
