@@ -68,7 +68,6 @@ public class Hippodrome {
             }
         }while(exit!=3);
         scan.close();
-
     }
 
     private void betting(Player[] listPlayer, Horse[] listHorse){
@@ -91,6 +90,8 @@ public class Hippodrome {
                         if(proofNumber(numberHorse, listHorse) == proofHorse){
                             for(Horse s : listHorse){
                                 if (s.getNumberId()==numberHorse){
+                                    int actualMoney = p.getMoney()-money;
+                                    p.setMoney(actualMoney);
                                     Bet b = new Bet(money, s);
                                     p.setBet(b);
                                     System.out.println("This player has completed his bet\n");
@@ -139,9 +140,6 @@ public class Hippodrome {
                     } else {
                         System.out.println("The player " + p.getName() + " lost the bet he made since he bet on the horse with the number " + p.getBet().getHorse().getNumberId() +
                                 " and the winning horse was the one with the dorsal number " + horseWinner.getNumberId());
-                        System.out.println("His salary before the bet was: " + p.getMoney());
-                        int lose = p.getMoney() - p.getBet().getQuantity();
-                        p.setMoney(lose);
                         System.out.println("\"His current salary after the bet is: " + p.getMoney());
                     }
                 }
